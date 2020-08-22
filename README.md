@@ -24,6 +24,8 @@ A PocketMine-MP plugin to check the server TPS and other players' ping. This plu
 | `/ping [player]` | Current ping of a player | `kygekpingtps.ping` | true |
 | `/tps` | Current TPS of the server | `kygekpingtps.tps` | true |
 
+Use `-kygekpingtps.ping` to blacklist the `/ping` command permission and `-kygekpingtps.tps` to blacklist the `/tps` command permission in PurePerms.
+
 # Upcoming Features
 
 - Able to change no permission message in `config.yml`
