@@ -21,8 +21,8 @@ A PocketMine-MP plugin to check the server TPS and other players' ping. This plu
 
 | Command | Description | Permission | Default |
 | --- | --- | --- | --- |
-| `/ping [player]` | Current ping of a player | `kygekpingtps.ping` | OP |
-| `/tps` | Current TPS of the server | `kygekpingtps.tps` | OP |
+| `/ping [player]` | Current ping of a player | `kygekpingtps.ping` | true |
+| `/tps` | Current TPS of the server | `kygekpingtps.tps` | true |
 
 # Upcoming Features
 

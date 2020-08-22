@@ -38,8 +38,8 @@ commands:
 permissions:
   kygekpingtps.ping:
     description: Permission to use /ping
-    default: op
+    default: true
   kygekpingtps.tps:
     description: Permission to use /tps
-    default: op
+    default: true
 ...
