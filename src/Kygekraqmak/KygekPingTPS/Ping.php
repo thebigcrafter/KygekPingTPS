@@ -1,5 +1,27 @@
 <?php
 
+/**
+ *     _    __                  _                                     _
+ *    | |  / /                 | |                                   | |
+ *    | | / /                  | |                                   | |
+ *    | |/ / _   _  ____   ____| | ______ ____   _____ ______   ____ | | __
+ *    | |\ \| | | |/ __ \ / __ \ |/ /  __/ __ \ / __  | _  _ \ / __ \| |/ /
+ *    | | \ \ \_| | <__> |  ___/   <| / | <__> | <__| | |\ |\ | <__> |   <
+ * By |_|  \_\__  |\___  |\____|_|\_\_|  \____^_\___  |_||_||_|\____^_\|\_\
+ *              | |    | |                          | |
+ *           ___/ | ___/ |                          | |
+ *          |____/ |____/                           |_|
+ *
+ * A PocketMine-MP plugin to see the server TPS and a player's ping
+ * Copyright (C) 2020 Kygekraqmak
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+*/
+
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
@@ -13,7 +35,7 @@ use pocketmine\command\Command;
 use Kygekraqmak\KygekPingTPS\Main;
 
 class Ping {
-	
+
 	public $other;
 	public $pingself;
 	public $pingother;
@@ -21,7 +43,7 @@ class Ping {
 	public $noperm;
 	public $notfound;
 	public $usage;
-	
+
 	public function PingCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
 		$this->prefix = TextFormat::YELLOW . "[KygekPingTPS] ";
 		$this->noperm = $this->prefix . TextFormat::RED . "You do not have permission to use this command";
@@ -30,9 +52,9 @@ class Ping {
 			$this->other = Main::getInstance()->getServer()->getPlayerExact($args[0]);
 			$this->notfound = $this->prefix . TextFormat::RED . "Player was not found";
 			if ($this->other == null) {
-                $sender->sendMessage($this->notfound);
-                return;
-            }
+				$sender->sendMessage($this->notfound);
+				return;
+			}
 			$this->pingother = TextFormat::AQUA . $this->other->getPing();
 		}
 		if (!$sender instanceof Player) {
@@ -51,5 +73,5 @@ class Ping {
 			} else $sender->sendMessage($this->noperm);
 		}
 	}
-	
+
 }
