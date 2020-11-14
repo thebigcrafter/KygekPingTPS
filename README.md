@@ -9,6 +9,9 @@ A PocketMine-MP plugin to check the server TPS and other players' ping. This plu
 - Check other players' network ping using command
 - Works in console
 - Invalid player name detection
+- Customizeable command messages
+- Automatic plugin updates checker
+- Commands messages instantly updated after change
 
 # How to Install
 
@@ -28,15 +31,10 @@ Use `-kygekpingtps.ping` to blacklist the `/ping` command permission and `-kygek
 
 # Upcoming Features
 
-- Able to change no permission message in `config.yml`
-- Able to change player not found message in `config.yml`
-- Able to change current tps message in `config.yml`
-- Able to change current player network ping in `config.yml`
-- Automatic update checker
-- And much more
+- Currently none planned. You can contribute or suggest for new features.
 
 # Additional Notes
 
-- Join the Discord <a href="https://discord.gg/CXtqUZv">here</a> for latest updates from Kygekraqmak.
+- Join our Discord server <a href="https://discord.gg/CXtqUZv">here</a> for latest updates from Kygekraqmak.
 - If you find bugs or want to give suggestions, please visit <a href="https://github.com/Kygekraqmak/KygekPingTPS/issues">here</a> or DM Kygekraqmak#6415 via Discord.
 - We accept any contributions! If you want to contribute please make a pull request in <a href="https://github.com/Kygekraqmak/KygekPingTPS/pulls">here</a>.
