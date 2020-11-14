@@ -27,17 +27,13 @@ declare(strict_types=1);
 namespace Kygekraqmak\KygekPingTPS;
 
 use pocketmine\Player;
-use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 
-use Kygekraqmak\KygekPingTPS\Main;
-
 class Ping {
 
 	public $other;
-	public $pingself;
 	public $pingother;
 	public $prefix;
 	public $noperm;

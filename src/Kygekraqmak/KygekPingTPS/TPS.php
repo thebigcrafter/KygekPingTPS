@@ -26,12 +26,9 @@ declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
-use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
-
-use Kygekraqmak\KygekPingTPS\Main;
 
 class TPS {
 
