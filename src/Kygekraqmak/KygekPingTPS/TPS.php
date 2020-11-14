@@ -26,22 +26,35 @@ declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
-use pocketmine\utils\TextFormat;
+use pocketmine\utils\Config;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
+use pocketmine\utils\TextFormat as TF;
 
 class TPS {
 
 	public $tps;
-	public $prefix;
-	public $noperm;
+
+    private function getConfig() : Config {
+        return Main::getInstance()->getConfig();
+    }
 
 	public function TPSCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
-		$this->tps = TextFormat::AQUA . Main::getInstance()->getServer()->getTicksPerSecond();
-		$this->prefix = TextFormat::YELLOW . "[KygekPingTPS] ";
-		$this->noperm = $this->prefix . TextFormat::RED . "You do not have permission to use this command";
-		if ($sender->hasPermission("kygekpingtps.tps")) $sender->sendMessage($this->prefix . TextFormat::GREEN . "Current server TPS: " . $this->tps);
-		else $sender->sendMessage($this->noperm);
+		$this->tps = Main::getInstance()->getServer()->getTicksPerSecond();
+		if ($sender->hasPermission("kygekpingtps.tps")) $sender->sendMessage($this->getServerTPSMessage());
+		else $sender->sendMessage($this->getNoPermMessage());
 	}
+
+    private function getNoPermMessage() : string {
+        $noperm = $this->getConfig()->get("no-permission", "");
+        $noperm = Main::replace($noperm);
+        return empty($noperm) ? Main::PREFIX . TF::RED . "You do not have permission to use this command" : $noperm;
+    }
+
+    private function getServerTPSMessage() : string {
+        $servertps = $this->getConfig()->get("server-tps", "");
+        $servertps = str_replace("{tps}", $this->tps, Main::replace($servertps));
+        return empty($servertps) ? Main::PREFIX . TF::GREEN . "Current server TPS: " . TF::AQUA . $this->tps : $servertps;
+    }
 
 }

@@ -15,6 +15,17 @@
 # KygekPingTPS configuration file
 #
 
+# Messages configuration (Leave empty to use default messages)
+# Use "{prefix}" to display KygekPingTPS default prefix
+# Use "&" as formatting codes
+# Use "\n" to break into new line
+no-permission: ""
+player-not-found: ""
+# Use "{tps}" to display server TPS in server-tps
+server-tps: ""
+# Use "{player}" to display player name or self and "{ping}" to display player's ping in player-ping
+player-ping: ""
+
 # Whether to check for plugin updates (Recommended)
 check-updates: true
 

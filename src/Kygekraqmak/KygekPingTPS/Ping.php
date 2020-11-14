@@ -27,7 +27,8 @@ declare(strict_types=1);
 namespace Kygekraqmak\KygekPingTPS;
 
 use pocketmine\Player;
-use pocketmine\utils\TextFormat;
+use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat as TF;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
 
@@ -35,39 +36,59 @@ class Ping {
 
 	public $other;
 	public $pingother;
-	public $prefix;
-	public $noperm;
-	public $notfound;
 	public $usage;
 
+	private function getConfig() : Config {
+	    return Main::getInstance()->getConfig();
+    }
+
 	public function PingCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
-		$this->prefix = TextFormat::YELLOW . "[KygekPingTPS] ";
-		$this->noperm = $this->prefix . TextFormat::RED . "You do not have permission to use this command";
-		$this->usage = $this->prefix . TextFormat::WHITE . "Usage: /ping <player>";
+		$this->usage = Main::PREFIX . TF::WHITE . "Usage: /ping <player>";
 		if (isset($args[0])) {
 			$this->other = Main::getInstance()->getServer()->getPlayer($args[0]);
-			$this->notfound = $this->prefix . TextFormat::RED . "Player was not found";
 			if ($this->other == null) {
-				$sender->sendMessage($this->notfound);
+				$sender->sendMessage($this->getPlayerNotFoundMessage());
 				return;
 			}
-			$this->pingother = TextFormat::AQUA . $this->other->getPing();
+			$this->pingother = TF::AQUA . $this->other->getPing();
 		}
 		if (!$sender instanceof Player) {
 			if (count($args) < 1) $sender->sendMessage($this->usage);
 			elseif (isset($args[0])) {
-				if (!$this->other instanceof Player) $sender->sendMessage($this->notfound);
-				else $sender->sendMessage($this->prefix . TextFormat::GREEN . $this->other->getName() . "'s current ping: " . $this->pingother);
+				if (!$this->other instanceof Player) $sender->sendMessage($this->getPlayerNotFoundMessage());
+				else $sender->sendMessage($this->getPlayerPingMessage($this->other, false));
 			}
 		} else {
 			if ($sender->hasPermission("kygekpingtps.ping")) {
-				if (count($args) < 1) $sender->sendMessage($this->prefix . TextFormat::GREEN . "Your current ping: " . TextFormat::AQUA . $sender->getPing());
+				if (count($args) < 1) $sender->sendMessage($this->getPlayerPingMessage($sender, true));
 				elseif (isset($args[0])) {
-					if (!$this->other instanceof Player) $sender->sendMessage($this->notfound);
-					else $sender->sendMessage($this->prefix . TextFormat::GREEN . $this->other->getName() . "'s current ping: " . $this->pingother);
+					if (!$this->other instanceof Player) $sender->sendMessage($this->getPlayerNotFoundMessage());
+					else $sender->sendMessage($this->getPlayerPingMessage($this->other, false));
 				}
-			} else $sender->sendMessage($this->noperm);
+			} else {
+			    $sender->sendMessage($this->getNoPermMessage());
+            }
 		}
 	}
+
+	private function getNoPermMessage() : string {
+        $noperm = $this->getConfig()->get("no-permission", "");
+        $noperm = Main::replace($noperm);
+        return empty($noperm) ? Main::PREFIX . TF::RED . "You do not have permission to use this command" : $noperm;
+    }
+
+    private function getPlayerPingMessage(Player $player, bool $self = true) : string {
+	    $playerping = $this->getConfig()->get("player-ping", "");
+	    $playername = $self ? "Your" : $player->getName() . "'s";
+	    $playerping = str_replace(["{player}", "{ping}"], [$playername, $player->getPing()], Main::replace($playerping));
+	    return empty($playerping) ? Main::PREFIX . TF::GREEN . $playername . " current ping: " . TF::AQUA .
+            ($self ? $player->getPing() : $this->pingother) : $playerping;
+    }
+
+    private function getPlayerNotFoundMessage() : string {
+        $notfound = $this->getConfig()->get("player-not-found", "");
+        $notfound = Main::replace($notfound);
+        return empty($notfound) ? Main::PREFIX . TF::RED . "Player was not found" : $notfound;
+    }
 
 }

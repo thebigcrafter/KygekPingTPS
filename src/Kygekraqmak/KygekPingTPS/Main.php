@@ -30,8 +30,11 @@ use JackMD\UpdateNotifier\UpdateNotifier;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
+use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase {
+
+    public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
 
 	private static $instance;
 
@@ -59,6 +62,7 @@ class Main extends PluginBase {
     }
 
 	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
+	    $this->getConfig()->reload();
 		switch ($cmd->getName()) {
 			case "tps":
 				$tps = new TPS();
@@ -71,5 +75,13 @@ class Main extends PluginBase {
 		}
 		return true;
 	}
+
+	public static function replace($string) : string {
+	    $replace = [
+	        "{prefix}" => self::PREFIX,
+            "&" => "§"
+        ];
+	    return strtr($string, $replace);
+    }
 
 }
