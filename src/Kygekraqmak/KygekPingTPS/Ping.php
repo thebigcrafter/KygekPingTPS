@@ -45,7 +45,7 @@ class Ping {
 		$this->noperm = $this->prefix . TextFormat::RED . "You do not have permission to use this command";
 		$this->usage = $this->prefix . TextFormat::WHITE . "Usage: /ping <player>";
 		if (isset($args[0])) {
-			$this->other = Main::getInstance()->getServer()->getPlayerExact($args[0]);
+			$this->other = Main::getInstance()->getServer()->getPlayer($args[0]);
 			$this->notfound = $this->prefix . TextFormat::RED . "Player was not found";
 			if ($this->other == null) {
 				$sender->sendMessage($this->notfound);
