@@ -26,6 +26,7 @@ declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
+use JackMD\UpdateNotifier\UpdateNotifier;
 use pocketmine\plugin\PluginBase;
 use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
@@ -36,11 +37,26 @@ class Main extends PluginBase {
 
 	public function onEnable() {
 		self::$instance = $this;
+		$this->saveDefaultConfig();
+		$this->checkConfig();
+        if ($this->getConfig()->get("check-updates", true)) {
+            UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
+        }
 	}
 
 	public static function getInstance() : self {
 		return self::$instance;
 	}
+
+    public function checkConfig() {
+        if ($this->getConfig()->get("config-version") !== "1.0") {
+            $this->getLogger()->notice("Your configuration file is outdated, updating the config.yml...");
+            $this->getLogger()->notice("The old configuration file can be found at config_old.yml");
+            rename($this->getDataFolder()."config.yml", $this->getDataFolder()."config_old.yml");
+            $this->saveDefaultConfig();
+            $this->getConfig()->reload();
+        }
+    }
 
 	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
 		switch ($cmd->getName()) {
