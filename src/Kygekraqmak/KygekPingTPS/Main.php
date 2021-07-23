@@ -20,7 +20,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
-*/
+ */
 
 declare(strict_types=1);
 
@@ -36,40 +36,40 @@ class Main extends PluginBase {
 
     public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
 
-	private static $instance;
+    private static $instance;
 
-	public function onEnable() {
-		self::$instance = $this;
-		$this->saveDefaultConfig();
-                KtpmplCfs::checkUpdates($this);
-		KtpmplCfs::checkConfig($this, "2.0-ALPHA");
-	}
+    public function onEnable() : void {
+        self::$instance = $this;
+        $this->saveDefaultConfig();
+        KtpmplCfs::checkUpdates($this);
+        KtpmplCfs::checkConfig($this, "2.0-ALPHA");
+    }
 
-	public static function getInstance() : self {
-		return self::$instance;
-	}
+    public static function getInstance() : self {
+        return self::$instance;
+    }
 
-	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
-	    $this->getConfig()->reload();
-		switch ($cmd->getName()) {
-			case "tps":
-				$tps = new TPS();
-				$tps->TPSCommand($sender, $cmd, $label, $args);
-			break;
-			case "ping":
-				$ping = new Ping();
-				$ping->PingCommand($sender, $cmd, $label, $args);
-			break;
-		}
-		return true;
-	}
+    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
+        $this->getConfig()->reload();
+        switch ($cmd->getName()) {
+            case "tps":
+                $tps = new TPS();
+                $tps->TPSCommand($sender, $cmd, $label, $args);
+                break;
+            case "ping":
+                $ping = new Ping();
+                $ping->PingCommand($sender, $cmd, $label, $args);
+                break;
+        }
+        return true;
+    }
 
-	public static function replace($string) : string {
-	    $replace = [
-	        "{prefix}" => self::PREFIX,
+    public static function replace($string) : string {
+        $replace = [
+            "{prefix}" => self::PREFIX,
             "&" => "§"
         ];
-	    return strtr($string, $replace);
+        return strtr($string, $replace);
     }
 
 }

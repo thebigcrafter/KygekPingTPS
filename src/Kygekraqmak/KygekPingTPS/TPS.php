@@ -20,7 +20,7 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
-*/
+ */
 
 declare(strict_types=1);
 
@@ -33,17 +33,17 @@ use pocketmine\utils\TextFormat as TF;
 
 class TPS {
 
-	public $tps;
+    public $tps;
 
     private function getConfig() : Config {
         return Main::getInstance()->getConfig();
     }
 
-	public function TPSCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
-		$this->tps = Main::getInstance()->getServer()->getTicksPerSecond();
-		if ($sender->hasPermission("kygekpingtps.tps")) $sender->sendMessage($this->getServerTPSMessage());
-		else $sender->sendMessage($this->getNoPermMessage());
-	}
+    public function TPSCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
+        $this->tps = Main::getInstance()->getServer()->getTicksPerSecond();
+        if ($sender->hasPermission("kygekpingtps.tps")) $sender->sendMessage($this->getServerTPSMessage());
+        else $sender->sendMessage($this->getNoPermMessage());
+    }
 
     private function getNoPermMessage() : string {
         $noperm = $this->getConfig()->get("no-permission", "");
