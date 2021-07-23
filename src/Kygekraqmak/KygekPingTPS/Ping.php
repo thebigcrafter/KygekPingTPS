@@ -34,9 +34,9 @@ use pocketmine\command\Command;
 
 class Ping {
 
-    public $other;
-    public $pingother;
-    public $usage;
+    public ?Player $other;
+    public string $pingother;
+    public string $usage;
 
     private function getConfig() : Config {
         return Main::getInstance()->getConfig();

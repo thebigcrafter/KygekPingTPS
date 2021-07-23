@@ -37,7 +37,7 @@ class Main extends PluginBase {
     private const IS_DEV = true;
     public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
 
-    private static $instance;
+    private static self $instance;
 
     public function onEnable() : void {
         self::$instance = $this;
