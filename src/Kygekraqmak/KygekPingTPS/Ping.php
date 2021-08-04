@@ -13,7 +13,7 @@
  *          |____/ |____/                           |_|
  *
  * A PocketMine-MP plugin to see the server TPS and a player's ping
- * Copyright (C) 2020 Kygekraqmak
+ * Copyright (C) 2020-2021 Kygekraqmak
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
