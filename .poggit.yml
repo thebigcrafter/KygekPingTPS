@@ -6,6 +6,6 @@ projects:
   KygekPingTPS:
     path: ""
     libs:
-    - src: JackMD/UpdateNotifier/UpdateNotifier
+    - src: ifera-mc/UpdateNotifier/UpdateNotifier
       version: ^2.1
 ...
