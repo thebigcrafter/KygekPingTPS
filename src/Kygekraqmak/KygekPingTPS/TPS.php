@@ -53,7 +53,7 @@ class TPS {
 
     private function getServerTPSMessage() : string {
         $servertps = $this->getConfig()->get("server-tps", "");
-        $servertps = str_replace("{tps}", $this->tps, Main::replace($servertps));
+        $servertps = str_replace("{tps}", (string) $this->tps, Main::replace($servertps));
         return empty($servertps) ? Main::PREFIX . TF::GREEN . "Current server TPS: " . TF::AQUA . $this->tps : $servertps;
     }
 
