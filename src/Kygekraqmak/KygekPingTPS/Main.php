@@ -1,15 +1,28 @@
 <?php
-/*
- * See your and others's ping and the server tps
- * Copyright © 2021 KygekTeam
+/**
+ *     _    __                  _                                     _
+ *    | |  / /                 | |                                   | |
+ *    | | / /                  | |                                   | |
+ *    | |/ / _   _  ____   ____| | ______ ____   _____ ______   ____ | | __
+ *    | |\ \| | | |/ __ \ / __ \ |/ /  __/ __ \ / __  | _  _ \ / __ \| |/ /
+ *    | | \ \ \_| | <__> |  ___/   <| / | <__> | <__| | |\ |\ | <__> |   <
+ * By |_|  \_\__  |\___  |\____|_|\_\_|  \____^_\___  |_||_||_|\____^_\|\_\
+ *              | |    | |                          | |
+ *           ___/ | ___/ |                          | |
+ *          |____/ |____/                           |_|
+ *
+ * A PocketMine-MP plugin to see the server TPS and a player's ping
+ * Copyright (C) 2020-2021 Kygekraqmak
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- */
+ *
+*/
 declare(strict_types=1);
-namespace KygekTeam\KygekPingTPS;
+
+namespace Kygekraqmak\KygekPingTPS;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
@@ -30,9 +43,9 @@ class Main extends PluginBase {
 		
         if ($this->getConfig()->get("check-updates", true)) {
         	if (class_exists("\JackMD\UpdateNotifier\UpdateNotifier")) {
-            	\JackMD\UpdateNotifier\UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
+            	UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
             } else {
-            	$this->getLogger()->notice("JackMD\UpdateNotifier is not installed on your server, install it or turn off check-updates on your config");
+            	$this->getLogger()->notice("UpdateNotifier Virion is currently not installed on your server, install it or turn off check-updates on your config. Without this virion, your plugins cannot get notifications from updates.");
             }
         }
         $this->getServer()->getCommandMap()->register("ping", new PingCommand($this));
@@ -40,9 +53,7 @@ class Main extends PluginBase {
 	}
 
     public function checkConfig() {
-    	$current_version = $this->getDescription()->getMap()["config"] ?? "0.0";
-    	//$this->getLogger()->notice($current_version);
-        if ($this->getConfig()->get("config-version") !== $current_version) {
+        if ($this->getConfig()->get("config-version") != "1.1") {
             $this->getLogger()->notice("Your configuration file is outdated, updating the config.yml...");
             $this->getLogger()->notice("The old configuration file can be found at config_old.yml");
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config_old.yml");

@@ -1,14 +1,6 @@
- # See your and others's ping and the server tps
- # Copyright © 2021 KygekTeam
- #
- # This program is free software: you can redistribute it and/or modify
- # it under the terms of the GNU General Public License as published by
- # the Free Software Foundation, either version 3 of the License, or
- # (at your option) any later version.
 name: KygekPingTPS
-config: "1.1"
-version: 1.0.2
-main: KygekTeam\KygekPingTPS\Main
+version: 1.1.0
+main: Kygekraqmak\KygekPingTPS\Main
 api: 3.0.0
 author: KygekDev
 
