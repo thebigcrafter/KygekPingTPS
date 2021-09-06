@@ -42,11 +42,7 @@ class Main extends PluginBase {
 		$this->checkConfig();
 		
         if ($this->getConfig()->get("check-updates", true)) {
-        	if (class_exists("\JackMD\UpdateNotifier\UpdateNotifier")) {
-            	UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
-            } else {
-            	$this->getLogger()->notice("UpdateNotifier Virion is currently not installed on your server, install it or turn off check-updates on your config. Without this virion, your plugins cannot get notifications from updates.");
-            }
+			UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
         }
         $this->getServer()->getCommandMap()->register("ping", new PingCommand($this));
         $this->getServer()->getCommandMap()->register("tps", new TPSCommand($this));
