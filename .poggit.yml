@@ -7,7 +7,7 @@ projects:
   KygekPingTPS:
     path: ""
     libs:
-    - src: Vecnavium/FormsUI/libFormsUI
+    - src: Vecnavium/FormsUI/FormsUI
       version: ^1.0.0
     - src: KygekTeam/ktpmpl-cfs/ktpmpl-cfs
       branch: pm4
