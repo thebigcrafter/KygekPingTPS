@@ -44,8 +44,7 @@ class Main extends PluginBase {
         if ($this->getConfig()->get("check-updates", true)) {
 			UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
         }
-        $this->getServer()->getCommandMap()->register("ping", new PingCommand($this));
-        $this->getServer()->getCommandMap()->register("tps", new TPSCommand($this));
+        $this->getServer()->getCommandMap()->registerAll("KygekPingTPS", [new PingCommand($this), new TPSCommand($this)]);
 	}
 
     public function checkConfig() {
