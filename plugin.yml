@@ -20,7 +20,7 @@
 #
 
 name: KygekPingTPS
-version: 2.0.0-ALPHA
+version: 2.0.0-BETA
 main: Kygekraqmak\KygekPingTPS\Main
 api: 4.0.0
 extensions:

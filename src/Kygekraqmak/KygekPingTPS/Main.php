@@ -47,7 +47,7 @@ class Main extends PluginBase {
             $this->getLogger()->warning("This plugin is running on a development version. There might be some major bugs. If you found one, please submit an issue in https://github.com/KygekTeam/KygekPingTPS/issues.");
         }
         KtpmplCfs::checkUpdates($this);
-        KtpmplCfs::checkConfig($this, "2.0-ALPHA");
+        KtpmplCfs::checkConfig($this, "2.0");
     }
 
     public static function getInstance() : self {
