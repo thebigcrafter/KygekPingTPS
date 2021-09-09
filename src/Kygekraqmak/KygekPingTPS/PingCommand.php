@@ -1,4 +1,5 @@
 <?php
+
 /**
  *     _    __                  _                                     _
  *    | |  / /                 | |                                   | |
@@ -20,6 +21,7 @@
  * (at your option) any later version.
  *
 */
+
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
@@ -53,46 +55,37 @@ class PingCommand extends Command {
 		
 		$target = $this->plugin->getServer()->getPlayer($args[0] ?? "");
 		
-		if (is_null($target) && isset($args[0])) {
-			$sender->sendMessage(Main::replace($this->getConfig()->get("player-not-found", ""), 
-				[
-					"{player}" => $args[0] ?? ""
-				]
-			));
-			return true;
-		}
-		
-		if(count($args) < 1) {
-			$sender->sendMessage($this->getUsage());
-			return true;
-		}
-		
-		$ping = $target->getPing();
-		
-		if($sender instanceof Player) {
-			if($sender->getName() == $target->getName()) {
-				$sender->sendMessage(Main::replace($this->getConfig()->get("self-ping", ""), 
+		if (isset($args[0])) {
+			if (is_null($target)) {
+				$sender->sendMessage(Main::replace($this->getConfig()->get("player-not-found", ""), 
 					[
-						"{ping}" => $ping
+						"{player}" => $args[0] ?? ""
 					]
 				));
+				return true;
 			}
-			return true;
+			
+			if ($sender !== $target) {
+				if ($sender->hasPermission("kygekpingtps.ping.others")) {
+					$sender->sendMessage(Main::replace($this->getConfig()->get("other-ping", ""), 
+						[
+							"{ping}" => $target->getPing(),
+							"{player}" => $target->getName()
+						]
+					));
+				} else
+					$sender->sendMessage(Main::replace($this->getConfig()->get("no-other-ping-perm", "")));
+				return true;
+			}
 		}
 		
-		
-		
-		if ($sender->hasPermission("kygekpingtps.ping-others")) {
-			$sender->sendMessage(Main::replace($this->getConfig()->get("other-ping", ""), 
+		if ($sender instanceof Player) {
+			$sender->sendMessage(Main::replace($this->getConfig()->get("self-ping", ""), 
 				[
-					"{ping}" => $ping,
-					"{player}" => $target->getName()
+					"{ping}" => $sender->getPing()
 				]
 			));
-		}else{
-			$sender->sendMessage(Main::replace($this->getConfig()->get("no-other-ping-perm", "")));
-			return false;
-		}
+		} else $sender->sendMessage($this->getUsage());
 		return true;
 	}
 }

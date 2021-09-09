@@ -23,13 +23,13 @@ name: KygekPingTPS
 version: 1.1.0
 main: Kygekraqmak\KygekPingTPS\Main
 api: 3.0.0
-author: KygekDev
+author: Kygekraqmak
 
 permissions:
   kygekpingtps.ping:
     description: Permission to use /ping
     default: true
-  kygekpingtps.ping-others:
+  kygekpingtps.ping.others:
     default: op
   kygekpingtps.tps:
     description: Permission to use /tps

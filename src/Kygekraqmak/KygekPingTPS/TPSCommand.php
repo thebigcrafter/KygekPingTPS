@@ -21,6 +21,7 @@
  * (at your option) any later version.
  *
 */
+
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
