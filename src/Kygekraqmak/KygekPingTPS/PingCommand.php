@@ -53,13 +53,14 @@ class PingCommand extends Command {
 			return false;
 		}
 		
-		$target = $this->plugin->getServer()->getPlayer($args[0] ?? "");
+		$target_name = implode(' ', $args);
+		$target = $this->plugin->getServer()->getPlayerByPrefix($target_name);
 		
-		if (isset($args[0])) {
+		if (!empty($target_name)) {
 			if (is_null($target)) {
 				$sender->sendMessage(Main::replace($this->getConfig()->get("player-not-found", ""), 
 					[
-						"{player}" => $args[0] ?? ""
+						"{player}" => $target_name
 					]
 				));
 				return true;
@@ -69,7 +70,7 @@ class PingCommand extends Command {
 				if ($sender->hasPermission("kygekpingtps.ping.others")) {
 					$sender->sendMessage(Main::replace($this->getConfig()->get("other-ping", ""), 
 						[
-							"{ping}" => $target->getPing(),
+							"{ping}" => $target->getNetworkSession()->getPing(),
 							"{player}" => $target->getName()
 						]
 					));
@@ -82,7 +83,7 @@ class PingCommand extends Command {
 		if ($sender instanceof Player) {
 			$sender->sendMessage(Main::replace($this->getConfig()->get("self-ping", ""), 
 				[
-					"{ping}" => $sender->getPing()
+					"{ping}" => $sender->getNetworkSession()->getPing()
 				]
 			));
 		} else $sender->sendMessage($this->getUsage());
