@@ -26,11 +26,11 @@ declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 use pocketmine\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat as TF;
-use pocketmine\command\CommandSender;
-use pocketmine\command\Command;
 
 class PingCommand extends Command {
 	
@@ -53,13 +53,14 @@ class PingCommand extends Command {
 			return false;
 		}
 		
-		$target = $this->plugin->getServer()->getPlayer($args[0] ?? "");
+		$target_name = implode(' ', $args);
+		$target = $this->plugin->getServer()->getPlayer($target_name);
 		
-		if (isset($args[0])) {
+		if (!empty($target_name)) {
 			if (is_null($target)) {
 				$sender->sendMessage(Main::replace($this->getConfig()->get("player-not-found", ""), 
 					[
-						"{player}" => $args[0] ?? ""
+						"{player}" => $target_name
 					]
 				));
 				return true;

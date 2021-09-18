@@ -13,7 +13,7 @@
  *          |____/ |____/                           |_|
  *
  * A PocketMine-MP plugin to see the server TPS and a player's ping
- * Copyright (C) 2020-2021 Kygekraqmak
+ * Copyright (C) 2020-2021 Kygekraqmak, KygekTeam
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,36 +29,30 @@ namespace Kygekraqmak\KygekPingTPS;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\TextFormat;
 
-use JackMD\UpdateNotifier\UpdateNotifier;
+use KygekTeam\KtpmplCfs\KtpmplCfs;
 
 class Main extends PluginBase {
 	
-	private static $instance;
-
-	public static function getInstance() : self {
-		return self::$instance;
-	}
+	private const IS_DEV = true;
+	public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
+	private static self $instance;
 
 	public function onEnable() {
 		self::$instance = $this;
 		$this->saveDefaultConfig();
-		$this->checkConfig();
-		
-        if ($this->getConfig()->get("check-updates", true)) {
-			UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
+		/** @phpstan-ignore-next-line */
+        if (self::IS_DEV) {
+            $this->getLogger()->warning("This plugin is running on a development version. There might be some major bugs. If you found one, please submit an issue in https://github.com/KygekTeam/KygekPingTPS/issues.");
         }
+        KtpmplCfs::checkUpdates($this);
+        KtpmplCfs::checkConfig($this, "2.0");
+        
         $this->getServer()->getCommandMap()->registerAll("KygekPingTPS", [new PingCommand($this), new TPSCommand($this)]);
 	}
 
-    public function checkConfig() {
-        if ($this->getConfig()->get("config-version") != "1.1") {
-            $this->getLogger()->notice("Your configuration file is outdated, updating the config.yml...");
-            $this->getLogger()->notice("The old configuration file can be found at config_old.yml");
-            rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config_old.yml");
-            $this->saveDefaultConfig();
-            $this->getConfig()->reload();
-        }
-    }
+	public static function getInstance() : self {
+		return self::$instance;
+	}
 
 	public static function replace(string $string, array $replacements = [], bool $default = true) : string {
 	    $defaults = [

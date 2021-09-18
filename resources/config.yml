@@ -26,7 +26,7 @@ prefix: "&8[KygekPingTPS]"
 # Use "{prefix}" to display prefix
 # Use "{player}" to display player name or self and "{ping}" to display player's ping in player-ping
 # Use "{tps}" to display server TPS in server-tps
-no-permission: "{prefix} &cYou do not have permission to use this command"
+no-permission: "{prefix} &cYou do not have permission to use this command."
 player-not-found: "{prefix} &c{player} was not found!"
 
 server-tps: "{prefix} Current server TPS: &b{tps}."
