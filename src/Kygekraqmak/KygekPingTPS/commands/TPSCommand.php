@@ -36,11 +36,11 @@ class TPSCommand extends PluginCommand {
     protected $plugin;
 
     public function __construct(Main $plugin) {
-        $this->plugin = $plugin;
-        parent::__construct("tps", $plugin);
+		$this->plugin = $plugin;
+		parent::__construct("tps", $plugin);
 		$this->setDescription("Current tps of the server.");
 		$this->setUsage("/tps");
-        $this->setPermission("kygekpingtps.tps");
+		$this->setPermission("kygekpingtps.tps");
     }
 
     private function getConfig() : Config {
@@ -51,7 +51,7 @@ class TPSCommand extends PluginCommand {
         $this->plugin->getConfig()->reload();
 
         if (!$this->testPermission($sender)) {
-            $sender->sendMessage(Main::getMessage("no-permission", "&cYou do not have permission to use this command!"));
+            $sender->sendMessage(Main::getMessage("message.no-permission", "&cYou do not have permission to use this command!"));
             return true;
         }
 
