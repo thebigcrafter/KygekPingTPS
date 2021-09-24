@@ -29,6 +29,7 @@ permissions:
   kygekpingtps.ping:
     description: Permission to use /ping
     default: true
+    childrens:
   kygekpingtps.ping.self:
     description: Permission to use /ping for self
     default: true

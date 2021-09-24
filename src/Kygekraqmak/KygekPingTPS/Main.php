@@ -48,7 +48,7 @@ class Main extends PluginBase {
         KtpmplCfs::checkConfig($this, "1.1");
 
         $this->getServer()->getCommandMap()->registerAll("KygekPingTPS", [new PingCommand($this), new TPSCommand($this)]);
-        self::$prefix = TextFormat::colorize($this->getConfig()->get("message-prefix", self::$prefix)) . TextFormat::RESET;
+        self::$prefix = TextFormat::colorize($this->getConfig()->get("message.prefix", self::$prefix)) . TextFormat::RESET;
     }
 
     public static function getInstance() : self {

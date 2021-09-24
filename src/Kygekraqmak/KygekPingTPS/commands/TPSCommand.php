@@ -29,7 +29,6 @@ namespace Kygekraqmak\KygekPingTPS\commands;
 use Kygekraqmak\KygekPingTPS\Main;
 use pocketmine\command\CommandSender;
 use pocketmine\command\PluginCommand;
-use pocketmine\utils\Config;
 
 class TPSCommand extends PluginCommand {
 
@@ -39,8 +38,8 @@ class TPSCommand extends PluginCommand {
     public function __construct(Main $plugin) {
         $this->plugin = $plugin;
         parent::__construct("tps", $plugin);
-        $this->setDescription("Current TPS of a player");
-        $this->setUsage("/tps");
+		$this->setDescription("Current tps of the server.");
+		$this->setUsage("/tps");
         $this->setPermission("kygekpingtps.tps");
     }
 
@@ -49,15 +48,15 @@ class TPSCommand extends PluginCommand {
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args) : bool {
-        $this->getConfig()->reload();
+        $this->plugin->getConfig()->reload();
 
         if (!$this->testPermission($sender)) {
-            $sender->sendMessage(Main::getMessage("no-permission", "&cYou do not have permission to use this command"));
+            $sender->sendMessage(Main::getMessage("no-permission", "&cYou do not have permission to use this command!"));
             return true;
         }
 
         $tps = (string) $this->plugin->getServer()->getTicksPerSecond();
-        $sender->sendMessage(Main::getMessage("server-tps", "Current server TPS: &b{tps}", ["{tps}" => $tps]));
+        $sender->sendMessage(Main::getMessage("message.server-tps", "Current server TPS: &b{tps}", ["{tps}" => $tps]));
         return true;
     }
 

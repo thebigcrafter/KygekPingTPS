@@ -17,7 +17,7 @@
 
 # Prefix for all KygekPingTPS messages
 # If empty, the plugin will use the default prefix
-message-prefix: "&8[KygekPingTPS] "
+message.prefix: "&8[KygekPingTPS] "
 
 
 # Messages configuration (Leave empty to use default messages)
@@ -25,18 +25,18 @@ message-prefix: "&8[KygekPingTPS] "
 # Use "\n" to break into new line
 
 # Use "{tps}" to display server TPS for /tps command
-server-tps: "Current server TPS: &b{tps}"
+message.server-tps: "Current server TPS: &b{tps}"
 
 # Use "{ping}" to display target player's ping for /ping command
 # Use "{player}" to display the target player name
-self-ping: "Your current ping: &b{ping}&rms"
-other-ping: "{player}'s current ping: &b{ping}&rms"
-player-not-found: "&cPlayer {player} was not found!"
+message.ping-self: "Your current ping: &b{ping}&rms."
+message.ping-others: "{player}'s current ping: &b{ping}&rms."
+message.player-not-found: "&cPlayer {player} was not found!"
 
 # No permission messages
-no-permission: "&cYou do not have permission to use this command"
-no-self-ping-perm: "&cYou do not have permission to see your ping!"
-no-other-ping-perm: "&cYou do not have permission to see other player's ping!"
+message.no-permission: "&cYou do not have permission to use this command!"
+message.no-self-ping-perm: "&cYou do not have permission to see your ping!"
+message.no-other-ping-perm: "&cYou do not have permission to see other player's ping!"
 
 
 # Whether to check for plugin updates (Recommended)
