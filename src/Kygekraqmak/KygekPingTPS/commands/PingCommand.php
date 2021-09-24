@@ -78,6 +78,12 @@ class PingCommand extends PluginCommand {
             return true;
         }
 
+        // Prevent the sender to see its ping if doesn't have the permission
+        if ($targetPlayer->getName() === $sender->getName() && !$sender->hasPermission("kygekpingtps.ping.self") && !$this->testPermission($sender)) {
+            $sender->sendMessage(Main::getMessage("no-self-ping-perm", "&cYou do not have permission to see your ping!"));
+            return true;
+        }
+
         $ping = (string) $targetPlayer->getPing();
         $sender->sendMessage(Main::getMessage("other-ping", "{player}'s current ping: &b{ping}&rms", [
             "{ping}" => $ping, "{player}" => $targetPlayer->getName()
