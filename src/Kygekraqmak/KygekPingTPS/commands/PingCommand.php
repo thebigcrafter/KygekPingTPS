@@ -56,7 +56,7 @@ class PingCommand extends Command {
                 return true;
             }
 
-            if (!$sender->hasPermission("kygekpingtps.ping.self" && !$this->testPermission($sender))) {
+            if (!$sender->hasPermission("kygekpingtps.ping.self") && !$this->testPermission($sender)) {
                 $sender->sendMessage(Main::getMessage("no-self-ping-perm", "&cYou do not have permission to see your ping!"));
                 return true;
             }
@@ -66,7 +66,7 @@ class PingCommand extends Command {
             return true;
         }
 
-        if (!$sender->hasPermission("kygekpingtps.ping.others" && !$this->testPermission($sender))) {
+        if (!$sender->hasPermission("kygekpingtps.ping.others") && !$this->testPermission($sender)) {
             $sender->sendMessage(Main::getMessage("no-other-ping-perm", "&cYou do not have permission to see other player's ping!"));
             return true;
         }
