@@ -58,4 +58,5 @@ class TPSCommand extends Command {
         $sender->sendMessage(Main::getMessage("server-tps", "Current server TPS: &b{tps}", ["{tps}" => $tps]));
         return true;
     }
+
 }

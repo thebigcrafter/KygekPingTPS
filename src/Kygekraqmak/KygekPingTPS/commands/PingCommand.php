@@ -83,4 +83,5 @@ class PingCommand extends Command {
 
         return true;
     }
+
 }
