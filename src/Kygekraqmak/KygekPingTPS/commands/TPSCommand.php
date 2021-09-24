@@ -27,18 +27,20 @@ declare(strict_types=1);
 namespace Kygekraqmak\KygekPingTPS\commands;
 
 use Kygekraqmak\KygekPingTPS\Main;
-use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\command\PluginCommand;
 use pocketmine\utils\Config;
 
-class TPSCommand extends Command {
+class TPSCommand extends PluginCommand {
 
     /** @var Main $plugin */
     protected $plugin;
 
     public function __construct(Main $plugin) {
         $this->plugin = $plugin;
-        parent::__construct("tps", "Current TPS of a player", "/tps");
+        parent::__construct("tps", $plugin);
+        $this->setDescription("Current TPS of a player");
+        $this->setUsage("/tps");
         $this->setPermission("kygekpingtps.tps");
     }
 

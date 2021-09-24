@@ -27,19 +27,21 @@ declare(strict_types=1);
 namespace Kygekraqmak\KygekPingTPS\commands;
 
 use Kygekraqmak\KygekPingTPS\Main;
-use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\command\PluginCommand;
 use pocketmine\Player;
 use pocketmine\utils\Config;
 
-class PingCommand extends Command {
+class PingCommand extends PluginCommand {
 
     /** @var Main $plugin */
     protected $plugin;
 
     public function __construct(Main $plugin) {
         $this->plugin = $plugin;
-        parent::__construct("ping", "Current ping of a player", "/ping [player]");
+        parent::__construct("ping", $plugin);
+        $this->setDescription("Current ping of a player");
+        $this->setUsage("/ping [player]");
         $this->setPermission("kygekpingtps.ping");
     }
 
