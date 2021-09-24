@@ -32,51 +32,51 @@ use pocketmine\command\PluginCommand;
 use pocketmine\Player;
 
 class PingCommand extends PluginCommand {
-	
-	/** @var Main $plugin */
-	protected $plugin;
+    
+    /** @var Main $plugin */
+    protected $plugin;
 
-	public function __construct(Main $plugin) {
-		$this->plugin = $plugin;
-		parent::__construct("ping", $plugin);
-		$this->setDescription("Current ping of a player.");
-		$this->setUsage("/ping <player>");
-		$this->setPermission("kygekpingtps.ping");
-	}
-	
-	public function execute(CommandSender $sender, string $commandLabel, array $args){
-		$this->plugin->getConfig()->reload();
-		if (!$this->testPermission($sender)) {
-			$sender->sendMessage(Main::getMessage("message.no-permission", "&cYou do not have permission to use this command!"));
-			return false;
-		}
-		
-		$target_name = implode(' ', $args);
-		$target = $this->plugin->getServer()->getPlayer($target_name);
-		
-		if (!empty($target_name)) {
-			if (is_null($target)) {
-				$sender->sendMessage(Main::getMessage("message.player-not-found", "&cPlayer {player} was not found!", ["{player}" => $target_name]));
-				return true;
-			}
-			
-			if ($sender !== $target) {
-				if ($sender->hasPermission("kygekpingtps.ping.others")) {
-					$sender->sendMessage(Main::getMessage("message.ping-others", "{player}'s current ping: &b{ping}&rms.", ["{ping}" => $target->getPing(), "{player}" => $target->getName()]));
-				} else
-					$sender->sendMessage(Main::getMessage("message.no-other-ping-perm", "&cYou do not have permission to see other player's ping!"));
-				return true;
-			}
-		}
-		
-		if ($sender instanceof Player) {
-			if (!$sender->hasPermission("kygekpingtps.ping.self")) {
-				$sender->sendMessage(Main::getMessage("message.no-self-ping-perm", "&cYou do not have permission to see your ping!"));
-				return true;
-			}
-			$sender->sendMessage(Main::getMessage("message.ping-self", "Your current ping: &b{ping}&rms.", ["{ping}" => $sender->getPing()]));
-		} else $sender->sendMessage($this->getUsage());
-		return true;
-	}
-	
+    public function __construct(Main $plugin) {
+        $this->plugin = $plugin;
+        parent::__construct("ping", $plugin);
+        $this->setDescription("Current ping of a player.");
+        $this->setUsage("/ping <player>");
+        $this->setPermission("kygekpingtps.ping");
+    }
+    
+    public function execute(CommandSender $sender, string $commandLabel, array $args){
+        $this->plugin->getConfig()->reload();
+        if (!$this->testPermission($sender)) {
+            $sender->sendMessage(Main::getMessage("message.no-permission", "&cYou do not have permission to use this command!"));
+            return false;
+        }
+        
+        $target_name = implode(' ', $args);
+        $target = $this->plugin->getServer()->getPlayer($target_name);
+        
+        if (!empty($target_name)) {
+            if (is_null($target)) {
+                $sender->sendMessage(Main::getMessage("message.player-not-found", "&cPlayer {player} was not found!", ["{player}" => $target_name]));
+                return true;
+            }
+            
+            if ($sender !== $target) {
+                if ($sender->hasPermission("kygekpingtps.ping.others")) {
+                    $sender->sendMessage(Main::getMessage("message.ping-others", "{player}'s current ping: &b{ping}&rms.", ["{ping}" => $target->getPing(), "{player}" => $target->getName()]));
+                } else
+                    $sender->sendMessage(Main::getMessage("message.no-other-ping-perm", "&cYou do not have permission to see other player's ping!"));
+                return true;
+            }
+        }
+        
+        if ($sender instanceof Player) {
+            if (!$sender->hasPermission("kygekpingtps.ping.self")) {
+                $sender->sendMessage(Main::getMessage("message.no-self-ping-perm", "&cYou do not have permission to see your ping!"));
+                return true;
+            }
+            $sender->sendMessage(Main::getMessage("message.ping-self", "Your current ping: &b{ping}&rms.", ["{ping}" => $sender->getPing()]));
+        } else $sender->sendMessage($this->getUsage());
+        return true;
+    }
+    
 }

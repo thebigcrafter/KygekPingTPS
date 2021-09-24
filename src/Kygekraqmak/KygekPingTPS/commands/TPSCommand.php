@@ -36,11 +36,11 @@ class TPSCommand extends PluginCommand {
     protected $plugin;
 
     public function __construct(Main $plugin) {
-		$this->plugin = $plugin;
-		parent::__construct("tps", $plugin);
-		$this->setDescription("Current tps of the server.");
-		$this->setUsage("/tps");
-		$this->setPermission("kygekpingtps.tps");
+        $this->plugin = $plugin;
+        parent::__construct("tps", $plugin);
+        $this->setDescription("Current tps of the server.");
+        $this->setUsage("/tps");
+        $this->setPermission("kygekpingtps.tps");
     }
 
     private function getConfig() : Config {
