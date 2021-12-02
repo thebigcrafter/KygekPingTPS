@@ -34,7 +34,7 @@ use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase {
 
-    private const IS_DEV = true;
+    private const IS_DEV = false;
     public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
 
     private static self $instance;

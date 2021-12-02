@@ -3,7 +3,7 @@
 [![Poggit](https://poggit.pmmp.io/shield.dl.total/KygekPingTPS)](https://poggit.pmmp.io/p/KygekPingTPS)
 [![Discord](https://img.shields.io/discord/735439472992321587.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/CXtqUZv)
 
-**PM4 BRANCH WARNING: This plugin branch is currently under development. There might be some major bugs. If you found one, please [submit an issue](https://github.com/KygekTeam/KygekPingTPS/issues).**
+**NOTICE:** This plugin branch is for PocketMine-MP 4. If you are looking for the PocketMine-MP 3 version of this plugin, please visit the [master](https://github.com/KygekTeam/KygekPingTPS/tree/master) branch.
 
 A PocketMine-MP plugin to check the server TPS and other players' ping. This plugin will be useful if you need to check the server TPS by command or check your or other players' network ping.
 
