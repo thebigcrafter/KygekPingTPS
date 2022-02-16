@@ -20,24 +20,20 @@
 #
 
 name: KygekPingTPS
-version: 1.0.1
+version: 1.1.0
 main: Kygekraqmak\KygekPingTPS\Main
 api: 3.0.0
 author: Kygekraqmak
 
-commands:
-  ping:
-    description: Current ping of a player
-    permission: kygekpingtps.ping
-    usage: "/ping [player]"
-  tps:
-    description: Current TPS of the server
-    permission: kygekpingtps.tps
-    usage: "/tps"
-
 permissions:
   kygekpingtps.ping:
     description: Permission to use /ping
+    default: true
+  kygekpingtps.ping.self:
+    description: Permission to use /ping for self
+    default: true
+  kygekpingtps.ping.others:
+    description: Permission to use /ping for others
     default: true
   kygekpingtps.tps:
     description: Permission to use /tps

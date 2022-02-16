@@ -20,68 +20,49 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
-*/
+ */
 
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
-use JackMD\UpdateNotifier\UpdateNotifier;
+use Kygekraqmak\KygekPingTPS\commands\PingCommand;
+use Kygekraqmak\KygekPingTPS\commands\TPSCommand;
+use KygekTeam\KtpmplCfs\KtpmplCfs;
 use pocketmine\plugin\PluginBase;
-use pocketmine\command\CommandSender;
-use pocketmine\command\Command;
 use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase {
 
-    public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
+    /** @var string */
+    public static $prefix = TextFormat::YELLOW . "[KygekPingTPS] " . TextFormat::RESET;
 
-	private static $instance;
+    /** @var self */
+    private static $instance;
 
-	public function onEnable() {
-		self::$instance = $this;
-		$this->saveDefaultConfig();
-		$this->checkConfig();
-        if ($this->getConfig()->get("check-updates", true)) {
-            UpdateNotifier::checkUpdate($this->getDescription()->getName(), $this->getDescription()->getVersion());
-        }
-	}
+    public function onEnable() {
+        self::$instance = $this;
+        $this->saveDefaultConfig();
 
-	public static function getInstance() : self {
-		return self::$instance;
-	}
+        KtpmplCfs::checkUpdates($this);
+        KtpmplCfs::checkConfig($this, "1.1");
 
-    public function checkConfig() {
-        if ($this->getConfig()->get("config-version") !== "1.0") {
-            $this->getLogger()->notice("Your configuration file is outdated, updating the config.yml...");
-            $this->getLogger()->notice("The old configuration file can be found at config_old.yml");
-            rename($this->getDataFolder()."config.yml", $this->getDataFolder()."config_old.yml");
-            $this->saveDefaultConfig();
-            $this->getConfig()->reload();
-        }
+        $this->getServer()->getCommandMap()->registerAll("KygekPingTPS", [new PingCommand($this), new TPSCommand($this)]);
+        self::$prefix = TextFormat::colorize($this->getConfig()->get("message.prefix", self::$prefix)) . TextFormat::RESET;
     }
 
-	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
-	    $this->getConfig()->reload();
-		switch ($cmd->getName()) {
-			case "tps":
-				$tps = new TPS();
-				$tps->TPSCommand($sender, $cmd, $label, $args);
-			break;
-			case "ping":
-				$ping = new Ping();
-				$ping->PingCommand($sender, $cmd, $label, $args);
-			break;
-		}
-		return true;
-	}
+    public static function getInstance() : self {
+        return self::$instance;
+    }
 
-	public static function replace($string) : string {
-	    $replace = [
-	        "{prefix}" => self::PREFIX,
-            "&" => "§"
-        ];
-	    return strtr($string, $replace);
+    /**
+     * @param string $key
+     * @param string $defaultValue
+     * @param string[] $replacements
+     * @return string
+     */
+    public static function getMessage(string $key, string $defaultValue = "", array $replacements = []) : string {
+        return self::$prefix . TextFormat::colorize(strtr(Main::getInstance()->getConfig()->get($key, $defaultValue), $replacements));
     }
 
 }
