@@ -26,11 +26,10 @@ declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
-use KygekTeam\KtpmplCfs\KtpmplCfs;
 use pocketmine\plugin\PluginBase;
-use pocketmine\command\CommandSender;
-use pocketmine\command\Command;
 use pocketmine\utils\TextFormat;
+
+use KygekTeam\KtpmplCfs\KtpmplCfs;
 
 class Main extends PluginBase {
 
@@ -48,33 +47,21 @@ class Main extends PluginBase {
         }
         KtpmplCfs::checkUpdates($this);
         KtpmplCfs::checkConfig($this, "2.0");
+        $this->getServer()->getCommandMap()->registerAll("KygekPingTPS", [new PingCommand($this), new TPSCommand($this)]);
     }
 
     public static function getInstance() : self {
         return self::$instance;
     }
 
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
-        $this->getConfig()->reload();
-        switch ($cmd->getName()) {
-            case "tps":
-                $tps = new TPS();
-                $tps->TPSCommand($sender, $cmd, $label, $args);
-                break;
-            case "ping":
-                $ping = new Ping();
-                $ping->PingCommand($sender, $cmd, $label, $args);
-                break;
-        }
-        return true;
-    }
-
-    public static function replace($string) : string {
-        $replace = [
-            "{prefix}" => self::PREFIX,
+    public static function replace(string $string, array $replacements = [], bool $default = true) : string {
+	    $defaults = [
+	        "{prefix}" => str_replace("&", "§", self::getInstance()->getConfig()->get("prefix") ?? "[KygekPingTPS]"),
             "&" => "§"
         ];
-        return strtr($string, $replace);
+        
+        $replacements = $default ? array_merge($replacements, $defaults) : $replacements;
+        
+	    return strtr($string, $replacements);
     }
-
 }

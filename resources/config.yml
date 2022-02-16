@@ -15,16 +15,25 @@
 # KygekPingTPS configuration file
 #
 
+
 # Messages configuration (Leave empty to use default messages)
 # Use "{prefix}" to display KygekPingTPS default prefix
 # Use "&" as formatting codes
 # Use "\n" to break into new line
-no-permission: ""
-player-not-found: ""
-# Use "{tps}" to display server TPS in server-tps
-server-tps: ""
+
+# Custom prefix
+prefix: "&8[KygekPingTPS]"
+
+# Use "{prefix}" to display prefix
 # Use "{player}" to display player name or self and "{ping}" to display player's ping in player-ping
-player-ping: ""
+# Use "{tps}" to display server TPS in server-tps
+no-permission: "{prefix} &cYou do not have permission to use this command."
+player-not-found: "{prefix} &c{player} was not found!"
+
+server-tps: "{prefix} Current server TPS: &b{tps}."
+other-ping: "{prefix} Current {player}'s ping is &b{ping}&rs."
+no-other-ping-perm: "{prefix} &cYou do not have permission to see other people's ping!"
+self-ping: "{prefix} Your current ping is &b{ping}&rs."
 
 # Whether to check for plugin updates (Recommended)
 check-updates: true

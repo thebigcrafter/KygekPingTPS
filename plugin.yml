@@ -27,20 +27,12 @@ authors: [Kygekraqmak, KygekTeam]
 description: See server TPS and a player's ping
 website: https://github.com/KygekTeam/KygekPingTPS
 
-commands:
-  ping:
-    description: Current ping of a player
-    permission: kygekpingtps.ping
-    usage: "/ping [player]"
-  tps:
-    description: Current TPS of the server
-    permission: kygekpingtps.tps
-    usage: "/tps"
-
 permissions:
   kygekpingtps.ping:
     description: Permission to use /ping
     default: true
+  kygekpingtps.ping.others:
+    default: op
   kygekpingtps.tps:
     description: Permission to use /tps
     default: true

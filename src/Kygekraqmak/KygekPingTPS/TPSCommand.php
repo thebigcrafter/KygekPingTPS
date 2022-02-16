@@ -20,41 +20,44 @@
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- */
+*/
 
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
-use pocketmine\utils\Config;
-use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat as TF;
 
-class TPS {
+class TPSCommand extends Command {
+	
+	/** @var Main $plugin */
+	protected $plugin;
 
-    public float $tps;
+	public function __construct(Main $plugin) {
+		$this->plugin = $plugin;
+		parent::__construct("tps", "Current tps of a player", "");
+		$this->setPermission("kygektpstps.tps");
+	}
 
-    private function getConfig() : Config {
-        return Main::getInstance()->getConfig();
+	private function getConfig() : Config {
+	    return $this->plugin->getConfig();
     }
-
-    public function TPSCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
-        $this->tps = Main::getInstance()->getServer()->getTicksPerSecond();
-        if ($sender->hasPermission("kygekpingtps.tps")) $sender->sendMessage($this->getServerTPSMessage());
-        else $sender->sendMessage($this->getNoPermMessage());
-    }
-
-    private function getNoPermMessage() : string {
-        $noperm = $this->getConfig()->get("no-permission", "");
-        $noperm = Main::replace($noperm);
-        return empty($noperm) ? Main::PREFIX . TF::RED . "You do not have permission to use this command" : $noperm;
-    }
-
-    private function getServerTPSMessage() : string {
-        $servertps = $this->getConfig()->get("server-tps", "");
-        $servertps = str_replace("{tps}", (string) $this->tps, Main::replace($servertps));
-        return empty($servertps) ? Main::PREFIX . TF::GREEN . "Current server TPS: " . TF::AQUA . $this->tps : $servertps;
-    }
-
+	
+	public function execute(CommandSender $sender, string $commandLabel, array $args){
+		if(!$this->testPermission($sender)){
+			$sender->sendMessage(Main::replace($this->getConfig()->get("no-permission", "")));
+			return false;
+		}
+		
+		$tps = $this->plugin->getServer()->getTicksPerSecond();
+		$sender->sendMessage(Main::replace($this->getConfig()->get("server-tps", ""), 
+			[
+				"{tps}" => $tps
+			]
+		));
+		return true;
+	}
 }
