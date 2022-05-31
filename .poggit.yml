@@ -1,7 +1,7 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/thebigcrafter/KygekPingTPS
 build-by-default: true
 branches:
-- master
+- main
 - pm3
 projects:
   KygekPingTPS:

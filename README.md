@@ -41,7 +41,7 @@ Use `-kygekpingtps.ping` to blacklist the `/ping` command permission and `-kygek
 # Additional Notes
 
 - Join our Discord server <a href="https://discord.gg/cEXW8uK6QA">here</a> for latest updates from thebigcrafter.
-- If you find bugs or want to give suggestions, please visit <a href="https://github.com/thebigcrafter/KygekPingTPS/issues">here</a> or DM /home/toby#6523 via Discord.
+- If you find bugs or want to give suggestions, please visit <a href="https://github.com/thebigcrafter/KygekPingTPS/issues">here</a> or DM /`home/toby#6523` via Discord.
 - We accept any contributions! If you want to contribute please make a pull request in <a href="https://github.com/thebigcrafter/KygekPingTPS/pulls">here</a>.
 
 # Other Versions
