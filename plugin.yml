@@ -25,7 +25,7 @@ main: Kygekraqmak\KygekPingTPS\Main
 api: 4.0.0
 authors: [Kygekraqmak, KygekTeam]
 description: See server TPS and a player's ping
-website: https://github.com/KygekTeam/KygekPingTPS
+website: https://github.com/thebigcrafter/KygekPingTPS
 
 commands:
   ping:

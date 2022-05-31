@@ -44,7 +44,7 @@ class Main extends PluginBase {
         $this->saveDefaultConfig();
         /** @phpstan-ignore-next-line */
         if (self::IS_DEV) {
-            $this->getLogger()->warning("This plugin is running on a development version. There might be some major bugs. If you found one, please submit an issue in https://github.com/KygekTeam/KygekPingTPS/issues.");
+            $this->getLogger()->warning("This plugin is running on a development version. There might be some major bugs. If you found one, please submit an issue in https://github.com/thebigcrafter/KygekPingTPS/issues.");
         }
         KtpmplCfs::checkUpdates($this);
         KtpmplCfs::checkConfig($this, "2.0");
