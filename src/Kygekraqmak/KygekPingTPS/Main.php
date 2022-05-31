@@ -34,47 +34,46 @@ use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase {
 
-    private const IS_DEV = false;
-    public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
+	private const IS_DEV = false;
+	public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
 
-    private static self $instance;
+	private static self $instance;
 
-    public function onEnable() : void {
-        self::$instance = $this;
-        $this->saveDefaultConfig();
-        /** @phpstan-ignore-next-line */
-        if (self::IS_DEV) {
-            $this->getLogger()->warning("This plugin is running on a development version. There might be some major bugs. If you found one, please submit an issue in https://github.com/thebigcrafter/KygekPingTPS/issues.");
-        }
-        KtpmplCfs::checkUpdates($this);
-        KtpmplCfs::checkConfig($this, "2.0");
-    }
+	public function onEnable(): void {
+		self::$instance = $this;
+		$this->saveDefaultConfig();
+		/** @phpstan-ignore-next-line */
+		if (self::IS_DEV) {
+			$this->getLogger()->warning("This plugin is running on a development version. There might be some major bugs. If you found one, please submit an issue in https://github.com/thebigcrafter/KygekPingTPS/issues.");
+		}
+		KtpmplCfs::checkUpdates($this);
+		KtpmplCfs::checkConfig($this, "2.0");
+	}
 
-    public static function getInstance() : self {
-        return self::$instance;
-    }
+	public static function getInstance(): self {
+		return self::$instance;
+	}
 
-    public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args) : bool {
-        $this->getConfig()->reload();
-        switch ($cmd->getName()) {
-            case "tps":
-                $tps = new TPS();
-                $tps->TPSCommand($sender, $cmd, $label, $args);
-                break;
-            case "ping":
-                $ping = new Ping();
-                $ping->PingCommand($sender, $cmd, $label, $args);
-                break;
-        }
-        return true;
-    }
+	public function onCommand(CommandSender $sender, Command $cmd, string $label, array $args): bool {
+		$this->getConfig()->reload();
+		switch ($cmd->getName()) {
+			case "tps":
+				$tps = new TPS();
+				$tps->TPSCommand($sender, $cmd, $label, $args);
+				break;
+			case "ping":
+				$ping = new Ping();
+				$ping->PingCommand($sender, $cmd, $label, $args);
+				break;
+		}
+		return true;
+	}
 
-    public static function replace($string) : string {
-        $replace = [
-            "{prefix}" => self::PREFIX,
-            "&" => "§"
-        ];
-        return strtr($string, $replace);
-    }
-
+	public static function replace($string): string {
+		$replace = [
+			"{prefix}" => self::PREFIX,
+			"&" => "§"
+		];
+		return strtr($string, $replace);
+	}
 }

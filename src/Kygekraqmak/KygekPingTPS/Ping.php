@@ -38,7 +38,7 @@ class Ping {
     public string $pingother;
     public string $usage;
 
-    private function getConfig() : Config {
+    private function getConfig(): Config {
         return Main::getInstance()->getConfig();
     }
 
@@ -71,13 +71,13 @@ class Ping {
         }
     }
 
-    private function getNoPermMessage() : string {
+    private function getNoPermMessage(): string {
         $noperm = $this->getConfig()->get("no-permission", "");
         $noperm = Main::replace($noperm);
         return empty($noperm) ? Main::PREFIX . TF::RED . "You do not have permission to use this command" : $noperm;
     }
 
-    private function getPlayerPingMessage(Player $player, bool $self = true) : string {
+    private function getPlayerPingMessage(Player $player, bool $self = true): string {
         $playerping = $this->getConfig()->get("player-ping", "");
         $playername = $self ? "Your" : $player->getName() . "'s";
         $playerping = str_replace(["{player}", "{ping}"], [$playername, $player->getNetworkSession()->getPing()], Main::replace($playerping));
@@ -85,10 +85,9 @@ class Ping {
             ($self ? $player->getNetworkSession()->getPing() : $this->pingother) : $playerping;
     }
 
-    private function getPlayerNotFoundMessage() : string {
+    private function getPlayerNotFoundMessage(): string {
         $notfound = $this->getConfig()->get("player-not-found", "");
         $notfound = Main::replace($notfound);
         return empty($notfound) ? Main::PREFIX . TF::RED . "Player was not found" : $notfound;
     }
-
 }
