@@ -34,60 +34,60 @@ use pocketmine\command\Command;
 
 class Ping {
 
-    public ?Player $other;
-    public string $pingother;
-    public string $usage;
+	public ?Player $other;
+	public string $pingother;
+	public string $usage;
 
-    private function getConfig(): Config {
-        return Main::getInstance()->getConfig();
-    }
+	private function getConfig(): Config {
+		return Main::getInstance()->getConfig();
+	}
 
-    public function PingCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
-        $this->usage = Main::PREFIX . TF::WHITE . "Usage: /ping <player>";
-        if (isset($args[0])) {
-            $this->other = Main::getInstance()->getServer()->getPlayerByPrefix($args[0]);
-            if ($this->other == null) {
-                $sender->sendMessage($this->getPlayerNotFoundMessage());
-                return;
-            }
-            $this->pingother = TF::AQUA . $this->other->getNetworkSession()->getPing();
-        }
-        if (!$sender instanceof Player) {
-            if (count($args) < 1) $sender->sendMessage($this->usage);
-            elseif (isset($args[0])) {
-                if (!$this->other instanceof Player) $sender->sendMessage($this->getPlayerNotFoundMessage());
-                else $sender->sendMessage($this->getPlayerPingMessage($this->other, false));
-            }
-        } else {
-            if ($sender->hasPermission("kygekpingtps.ping")) {
-                if (count($args) < 1) $sender->sendMessage($this->getPlayerPingMessage($sender, true));
-                elseif (isset($args[0])) {
-                    if (!$this->other instanceof Player) $sender->sendMessage($this->getPlayerNotFoundMessage());
-                    else $sender->sendMessage($this->getPlayerPingMessage($this->other, false));
-                }
-            } else {
-                $sender->sendMessage($this->getNoPermMessage());
-            }
-        }
-    }
+	public function PingCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
+		$this->usage = Main::PREFIX . TF::WHITE . "Usage: /ping <player>";
+		if (isset($args[0])) {
+			$this->other = Main::getInstance()->getServer()->getPlayerByPrefix($args[0]);
+			if ($this->other == null) {
+				$sender->sendMessage($this->getPlayerNotFoundMessage());
+				return;
+			}
+			$this->pingother = TF::AQUA . $this->other->getNetworkSession()->getPing();
+		}
+		if (!$sender instanceof Player) {
+			if (count($args) < 1) $sender->sendMessage($this->usage);
+			elseif (isset($args[0])) {
+				if (!$this->other instanceof Player) $sender->sendMessage($this->getPlayerNotFoundMessage());
+				else $sender->sendMessage($this->getPlayerPingMessage($this->other, false));
+			}
+		} else {
+			if ($sender->hasPermission("kygekpingtps.ping")) {
+				if (count($args) < 1) $sender->sendMessage($this->getPlayerPingMessage($sender, true));
+				elseif (isset($args[0])) {
+					if (!$this->other instanceof Player) $sender->sendMessage($this->getPlayerNotFoundMessage());
+					else $sender->sendMessage($this->getPlayerPingMessage($this->other, false));
+				}
+			} else {
+				$sender->sendMessage($this->getNoPermMessage());
+			}
+		}
+	}
 
-    private function getNoPermMessage(): string {
-        $noperm = $this->getConfig()->get("no-permission", "");
-        $noperm = Main::replace($noperm);
-        return empty($noperm) ? Main::PREFIX . TF::RED . "You do not have permission to use this command" : $noperm;
-    }
+	private function getNoPermMessage(): string {
+		$noperm = $this->getConfig()->get("no-permission", "");
+		$noperm = Main::replace($noperm);
+		return empty($noperm) ? Main::PREFIX . TF::RED . "You do not have permission to use this command" : $noperm;
+	}
 
-    private function getPlayerPingMessage(Player $player, bool $self = true): string {
-        $playerping = $this->getConfig()->get("player-ping", "");
-        $playername = $self ? "Your" : $player->getName() . "'s";
-        $playerping = str_replace(["{player}", "{ping}"], [$playername, $player->getNetworkSession()->getPing()], Main::replace($playerping));
-        return empty($playerping) ? Main::PREFIX . TF::GREEN . $playername . " current ping: " . TF::AQUA .
-            ($self ? $player->getNetworkSession()->getPing() : $this->pingother) : $playerping;
-    }
+	private function getPlayerPingMessage(Player $player, bool $self = true): string {
+		$playerping = $this->getConfig()->get("player-ping", "");
+		$playername = $self ? "Your" : $player->getName() . "'s";
+		$playerping = str_replace(["{player}", "{ping}"], [$playername, $player->getNetworkSession()->getPing()], Main::replace($playerping));
+		return empty($playerping) ? Main::PREFIX . TF::GREEN . $playername . " current ping: " . TF::AQUA .
+			($self ? $player->getNetworkSession()->getPing() : $this->pingother) : $playerping;
+	}
 
-    private function getPlayerNotFoundMessage(): string {
-        $notfound = $this->getConfig()->get("player-not-found", "");
-        $notfound = Main::replace($notfound);
-        return empty($notfound) ? Main::PREFIX . TF::RED . "Player was not found" : $notfound;
-    }
+	private function getPlayerNotFoundMessage(): string {
+		$notfound = $this->getConfig()->get("player-not-found", "");
+		$notfound = Main::replace($notfound);
+		return empty($notfound) ? Main::PREFIX . TF::RED . "Player was not found" : $notfound;
+	}
 }
