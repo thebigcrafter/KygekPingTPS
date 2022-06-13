@@ -48,12 +48,12 @@ class TPS {
 	private function getNoPermMessage(): string {
 		$noperm = $this->getConfig()->get("no-permission", "");
 		$noperm = Main::replace($noperm);
-		return empty($noperm) ? Main::PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
+		return empty($noperm) ? Main::$PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
 	}
 
 	private function getServerTPSMessage(): string {
 		$servertps = $this->getConfig()->get("server-tps", "");
 		$servertps = str_replace("{tps}", (string) $this->tps, Main::replace($servertps));
-		return empty($servertps) ? Main::PREFIX . TextFormat::GREEN . "Current server TPS: " . TextFormat::AQUA . $this->tps : $servertps;
+		return empty($servertps) ? Main::$PREFIX . TextFormat::GREEN . "Current server TPS: " . TextFormat::AQUA . $this->tps : $servertps;
 	}
 }

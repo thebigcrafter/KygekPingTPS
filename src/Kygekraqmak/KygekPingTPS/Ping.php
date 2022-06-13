@@ -43,7 +43,7 @@ class Ping {
 	}
 
 	public function PingCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
-		$this->usage = Main::PREFIX . TextFormat::WHITE . "Usage: /ping <player>";
+		$this->usage = Main::$PREFIX . TextFormat::WHITE . "Usage: /ping <player>";
 		if (isset($args[0])) {
 			$this->other = Main::getInstance()->getServer()->getPlayerByPrefix($args[0]);
 			if ($this->other == null) {
@@ -74,20 +74,20 @@ class Ping {
 	private function getNoPermMessage(): string {
 		$noperm = $this->getConfig()->get("no-permission", "");
 		$noperm = Main::replace($noperm);
-		return empty($noperm) ? Main::PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
+		return empty($noperm) ? Main::$PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
 	}
 
 	private function getPlayerPingMessage(Player $player, bool $self = true): string {
 		$playerping = $this->getConfig()->get("player-ping", "");
 		$playername = $self ? "Your" : $player->getName() . "'s";
 		$playerping = str_replace(["{player}", "{ping}"], [$playername, $player->getNetworkSession()->getPing()], Main::replace($playerping));
-		return empty($playerping) ? Main::PREFIX . TextFormat::GREEN . $playername . " current ping: " . TextFormat::AQUA .
+		return empty($playerping) ? Main::$PREFIX . TextFormat::GREEN . $playername . " current ping: " . TextFormat::AQUA .
 			($self ? $player->getNetworkSession()->getPing() : $this->pingother) : $playerping;
 	}
 
 	private function getPlayerNotFoundMessage(): string {
 		$notfound = $this->getConfig()->get("player-not-found", "");
 		$notfound = Main::replace($notfound);
-		return empty($notfound) ? Main::PREFIX . TextFormat::RED . "Player was not found" : $notfound;
+		return empty($notfound) ? Main::$PREFIX . TextFormat::RED . "Player was not found" : $notfound;
 	}
 }

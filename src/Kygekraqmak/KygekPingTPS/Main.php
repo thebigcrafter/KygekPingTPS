@@ -35,7 +35,7 @@ use pocketmine\utils\TextFormat;
 class Main extends PluginBase {
 
 	private bool $isDev = false;
-	public const PREFIX = TextFormat::YELLOW . "[KygekPingTPS] ";
+	public static string $PREFIX;
 
 	private static self $instance;
 
@@ -48,6 +48,7 @@ class Main extends PluginBase {
 		}
 		$ktpmplCfs->checkUpdates();
 		$ktpmplCfs->checkConfig("2.0");
+		self::$PREFIX = $this->getConfig()->get("prefix");
 	}
 
 	public static function getInstance(): self {
@@ -71,7 +72,7 @@ class Main extends PluginBase {
 
 	public static function replace($string): string {
 		$replace = [
-			"{prefix}" => self::PREFIX,
+			"{prefix}" => self::$PREFIX,
 			"&" => "§"
 		];
 		return strtr($string, $replace);
