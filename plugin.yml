@@ -23,7 +23,7 @@ name: KygekPingTPS
 version: 2.0.2
 main: Kygekraqmak\KygekPingTPS\Main
 api: 5.0.0
-authors: [Kygekraqmak, KygekTeam]
+authors: [Kygekraqmak, KygekTeam, thebigcrafter]
 description: See server TPS and a player's ping
 website: https://github.com/thebigcrafter/KygekPingTPS
 
