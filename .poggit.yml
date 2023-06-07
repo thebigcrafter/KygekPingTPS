@@ -2,7 +2,6 @@
 build-by-default: true
 branches:
 - main
-- pm3
 projects:
   KygekPingTPS:
     path: ""
