@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  *     _    __                  _                                     _
  *    | |  / /                 | |                                   | |
  *    | | / /                  | |                                   | |
@@ -13,29 +13,29 @@
  *          |____/ |____/                           |_|
  *
  * A PocketMine-MP plugin to see the server TPS and a player's ping
- * Copyright (C) 2020-2021 Kygekraqmak, KygekTeam
+ * Copyright (C) 2020-2023 Kygekraqmak, KygekTeam
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
  */
 
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
-use pocketmine\utils\Config;
-use pocketmine\command\CommandSender;
 use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
+use function str_replace;
 
 class TPS {
 
 	public float $tps;
 
-	private function getConfig(): Config {
+	private function getConfig() : Config {
 		return Main::getInstance()->getConfig();
 	}
 
@@ -45,13 +45,13 @@ class TPS {
 		else $sender->sendMessage($this->getNoPermMessage());
 	}
 
-	private function getNoPermMessage(): string {
+	private function getNoPermMessage() : string {
 		$noperm = $this->getConfig()->get("no-permission", "");
 		$noperm = Main::replace($noperm);
 		return empty($noperm) ? Main::$PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
 	}
 
-	private function getServerTPSMessage(): string {
+	private function getServerTPSMessage() : string {
 		$servertps = $this->getConfig()->get("server-tps", "");
 		$servertps = str_replace("{tps}", (string) $this->tps, Main::replace($servertps));
 		return empty($servertps) ? Main::$PREFIX . TextFormat::GREEN . "Current server TPS: " . TextFormat::AQUA . $this->tps : $servertps;

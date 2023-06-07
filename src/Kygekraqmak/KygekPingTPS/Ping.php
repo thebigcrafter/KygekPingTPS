@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  *     _    __                  _                                     _
  *    | |  / /                 | |                                   | |
  *    | | / /                  | |                                   | |
@@ -13,24 +13,25 @@
  *          |____/ |____/                           |_|
  *
  * A PocketMine-MP plugin to see the server TPS and a player's ping
- * Copyright (C) 2020-2021 Kygekraqmak, KygekTeam
+ * Copyright (C) 2020-2023 Kygekraqmak, KygekTeam
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- *
  */
 
 declare(strict_types=1);
 
 namespace Kygekraqmak\KygekPingTPS;
 
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
-use pocketmine\command\CommandSender;
-use pocketmine\command\Command;
+use function count;
+use function str_replace;
 
 class Ping {
 
@@ -38,7 +39,7 @@ class Ping {
 	public string $pingother;
 	public string $usage;
 
-	private function getConfig(): Config {
+	private function getConfig() : Config {
 		return Main::getInstance()->getConfig();
 	}
 
@@ -71,13 +72,13 @@ class Ping {
 		}
 	}
 
-	private function getNoPermMessage(): string {
+	private function getNoPermMessage() : string {
 		$noperm = $this->getConfig()->get("no-permission", "");
 		$noperm = Main::replace($noperm);
 		return empty($noperm) ? Main::$PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
 	}
 
-	private function getPlayerPingMessage(Player $player, bool $self = true): string {
+	private function getPlayerPingMessage(Player $player, bool $self = true) : string {
 		$playerping = $this->getConfig()->get("player-ping", "");
 		$playername = $self ? "Your" : $player->getName() . "'s";
 		$playerping = str_replace(["{player}", "{ping}"], [$playername, $player->getNetworkSession()->getPing()], Main::replace($playerping));
@@ -85,7 +86,7 @@ class Ping {
 			($self ? $player->getNetworkSession()->getPing() : $this->pingother) : $playerping;
 	}
 
-	private function getPlayerNotFoundMessage(): string {
+	private function getPlayerNotFoundMessage() : string {
 		$notfound = $this->getConfig()->get("player-not-found", "");
 		$notfound = Main::replace($notfound);
 		return empty($notfound) ? Main::$PREFIX . TextFormat::RED . "Player was not found" : $notfound;
