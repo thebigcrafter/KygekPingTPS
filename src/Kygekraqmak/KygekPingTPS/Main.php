@@ -38,7 +38,7 @@ class Main extends PluginBase {
 
 	private static self $instance;
 
-	public function onEnable() : void {
+	protected function onEnable() : void {
 		self::$instance = $this;
 		$this->saveDefaultConfig();
 		Hydrogen::checkForUpdates($this);
