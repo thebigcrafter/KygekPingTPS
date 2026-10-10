@@ -31,6 +31,7 @@ use pocketmine\player\Player;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
 use function count;
+use function is_string;
 use function str_replace;
 
 class Ping {

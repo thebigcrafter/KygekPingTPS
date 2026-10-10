@@ -10,6 +10,13 @@
 
 A PocketMine-MP plugin to check the server TPS and other players' ping. This plugin will be useful if you need to check the server TPS by command or check your or other players' network ping.
 
+# ✅ Requirements
+
+- PocketMine-MP API 5.0.0 or a compatible API 5 release.
+- [Hydrogen](https://github.com/thebigcrafter/Hydrogen) is used for the update-check and configuration-maintenance helpers declared by the Poggit manifest.
+
+The plugin checks TPS through the server API and reads player ping from the active network session. The `/ping` command can be used by the console with a player name; a player can query their own ping or another online player when the command permission allows it. The `/tps` command is available to command senders with its permission.
+
 # 🧩 Features
 
 - Check server TPS using command
@@ -39,6 +46,10 @@ A PocketMine-MP plugin to check the server TPS and other players' ping. This plu
 - Use `-kygekpingtps.ping` to blacklist the `/ping` command permission.
 - Use `-kygekpingtps.tps` to blacklist the `/tps` command permission in PurePerms.
 
+# ⚙️ Configuration
+
+After the first start, edit `plugin_data/KygekPingTPS/config.yml` to customize the prefix and messages. The placeholders `{prefix}`, `{player}`, `{ping}` and `{tps}` are supported by the corresponding message fields, and `&` can be used for formatting codes. Leave a message empty to use the built-in default. Keep `config-version` unchanged; the plugin uses it for configuration migration.
+
 # 🚢 Other Versions
 
 - [Nukkit](https://github.com/KygekTeam/KygekPingTPS-Nukkit)
@@ -47,3 +58,14 @@ A PocketMine-MP plugin to check the server TPS and other players' ping. This plu
 # ⚖️ License
 
 Licensed under the [GNU General Public License v3.0](https://github.com/thebigcrafter/KygekPingTPS/blob/main/LICENSE) license.
+
+# 🛠️ Development
+
+Install the locked development dependencies and run the maximum-level analysis before submitting changes:
+
+```shell
+composer install
+composer run analyse
+```
+
+The Poggit manifest remains the packaging path for this plugin. DevTools is used by the packaging environment to assemble and validate the plugin; this README intentionally describes that function without copying a builder revision.
