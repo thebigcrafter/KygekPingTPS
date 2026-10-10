@@ -30,6 +30,7 @@ use pocketmine\command\CommandSender;
 use pocketmine\plugin\PluginBase;
 use thebigcrafter\Hydrogen\HConfig;
 use thebigcrafter\Hydrogen\Hydrogen;
+use function is_string;
 use function strtr;
 
 class Main extends PluginBase {
@@ -45,7 +46,8 @@ class Main extends PluginBase {
 		if (HConfig::verifyConfigVersion($this->getConfig(), "2.0")) {
 			HConfig::resetConfig($this);
 		}
-		self::$PREFIX = $this->getConfig()->get("prefix");
+		$prefix = $this->getConfig()->get("prefix", "");
+		self::$PREFIX = is_string($prefix) ? $prefix : "";
 	}
 
 	public static function getInstance() : self {
@@ -67,7 +69,7 @@ class Main extends PluginBase {
 		return true;
 	}
 
-	public static function replace($string) : string {
+	public static function replace(string $string) : string {
 		$replace = [
 			"{prefix}" => self::$PREFIX,
 			"&" => "§"

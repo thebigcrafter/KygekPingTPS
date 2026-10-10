@@ -29,6 +29,7 @@ use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\utils\Config;
 use pocketmine\utils\TextFormat;
+use function is_string;
 use function str_replace;
 
 class TPS {
@@ -39,21 +40,27 @@ class TPS {
 		return Main::getInstance()->getConfig();
 	}
 
-	public function TPSCommand(CommandSender $sender, Command $cmd, string $label, array $args) {
+	/** @param array<string> $args */
+	public function TPSCommand(CommandSender $sender, Command $cmd, string $label, array $args) : void {
 		$this->tps = Main::getInstance()->getServer()->getTicksPerSecond();
 		if ($sender->hasPermission("kygekpingtps.tps")) $sender->sendMessage($this->getServerTPSMessage());
 		else $sender->sendMessage($this->getNoPermMessage());
 	}
 
 	private function getNoPermMessage() : string {
-		$noperm = $this->getConfig()->get("no-permission", "");
+		$noperm = $this->getMessage("no-permission");
 		$noperm = Main::replace($noperm);
 		return empty($noperm) ? Main::$PREFIX . TextFormat::RED . "You do not have permission to use this command" : $noperm;
 	}
 
 	private function getServerTPSMessage() : string {
-		$servertps = $this->getConfig()->get("server-tps", "");
+		$servertps = $this->getMessage("server-tps");
 		$servertps = str_replace("{tps}", (string) $this->tps, Main::replace($servertps));
 		return empty($servertps) ? Main::$PREFIX . TextFormat::GREEN . "Current server TPS: " . TextFormat::AQUA . $this->tps : $servertps;
+	}
+
+	private function getMessage(string $key) : string {
+		$value = $this->getConfig()->get($key, "");
+		return is_string($value) ? $value : "";
 	}
 }
