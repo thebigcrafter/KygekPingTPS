@@ -17,7 +17,7 @@ A PocketMine-MP plugin to check the server TPS and other players' ping. This plu
 - Check other players' network ping using command
 - Works in console
 - Invalid player name detection
-- Customizeable command messages
+- Customizable command messages
 - Automatic plugin updates checker
 - Commands messages instantly updated after change
 
