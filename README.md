@@ -1,18 +1,18 @@
 <h1 align="center">KygekPingTPS</h1>
 
 <p align="center">
-<a href="https://poggit.pmmp.io/p/KygekPingTPS"><img src="https://poggit.pmmp.io/shield.dl.total/KygekPingTPS?style=for-the-badge" alt="poggit" /></a>
+<a href="https://github.com/thebigcrafter/KygekPingTPS/releases"><img src="https://img.shields.io/github/downloads/thebigcrafter/KygekPingTPS/total?style=for-the-badge" alt="GitHub downloads" /></a>
 <a href="https://github.com/thebigcrafter/KygekPingTPS/blob/main/LICENSE"><img src="https://img.shields.io/github/license/thebigcrafter/KygekPingTPS?style=for-the-badge" alt="license" /></a>
 <a href="https://discord.gg/PykBfE2TZ9"><img src="https://img.shields.io/discord/1087729577004122112?color=7289DA&label=discord&logo=discord&style=for-the-badge" alt="discord" /></a>
 </p>
 
 # 📖 About
 
-A PocketMine-MP plugin to check the server TPS and other players' ping. This plugin will be useful if you need to check the server TPS by command or check your or other players' network ping.
+A plugin for Axolotl-PM (PocketMine-MP API 5) to check the server TPS and player ping. It provides commands for checking the server TPS and the network latency of yourself or another online player.
 
 # ✅ Requirements
 
-- PocketMine-MP API 5.0.0 or a compatible API 5 release.
+- Axolotl-PM API 5.0.0 or a compatible API 5 release.
 - [Hydrogen](https://github.com/thebigcrafter/Hydrogen) is used for the update-check and configuration-maintenance helpers declared by the Poggit manifest.
 
 The plugin checks TPS through the server API and reads player ping from the active network session. The `/ping` command can be used by the console with a player name; a player can query their own ping or another online player when the command permission allows it. The `/tps` command is available to command senders with its permission.
@@ -30,9 +30,9 @@ The plugin checks TPS through the server API and reads player ping from the acti
 
 # ⬇️ Installation
 
-1. Download the latest version (It is recommended to always download the latest version for the best experience, except you're having compatibility issues).
-2. Put the `KygekPingTPS.phar` file into the `plugins` folder.
-3. Restart the server.
+1. Download the latest plugin PHAR from [GitHub Releases](https://github.com/thebigcrafter/KygekPingTPS/releases). Use an older release only when investigating a compatibility issue.
+2. Put `KygekPingTPS.phar` in the `plugins` folder.
+3. Restart Axolotl-PM.
 4. Done!
 
 # 📜 Commands & Permissions
@@ -68,4 +68,4 @@ composer install
 composer run analyse
 ```
 
-The Poggit manifest remains the packaging path for this plugin. DevTools is used by the packaging environment to assemble and validate the plugin; this README intentionally describes that function without copying a builder revision.
+The checked-in Poggit manifest remains the source of the plugin dependency declaration. [DevTools](https://github.com/NhanAZ/DevTools) is used by the packaging environment to assemble and validate the plugin; this README describes that function without copying a builder revision.
