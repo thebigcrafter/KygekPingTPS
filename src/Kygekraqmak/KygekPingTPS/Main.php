@@ -43,7 +43,7 @@ class Main extends PluginBase {
 		self::$instance = $this;
 		$this->saveDefaultConfig();
 		Hydrogen::checkForUpdates($this);
-		if (HConfig::verifyConfigVersion($this->getConfig(), "2.0")) {
+		if (HConfig::verifyConfigVersion($this->getConfig(), "2.0.5")) {
 			HConfig::resetConfig($this);
 		}
 		$prefix = $this->getConfig()->get("prefix", "");
