@@ -68,4 +68,4 @@ composer install
 composer run analyse
 ```
 
-The checked-in Poggit manifest remains the source of the plugin dependency declaration. [DevTools](https://github.com/NhanAZ/DevTools) is used by the packaging environment to assemble and validate the plugin; this README describes that function without copying a builder revision.
+The checked-in Poggit manifest remains the source of the plugin dependency declaration. [DevTools](https://github.com/AxolotlBucketLabs/DevTools) is used by the packaging environment to assemble and validate the plugin; this README describes that function without copying a builder revision.
